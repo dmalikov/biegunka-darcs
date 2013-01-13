@@ -1,0 +1,24 @@
+Name: biegunka-darcs
+Version: 0.1.0.0
+Synopsis: Darcs repositories support as Source.
+License: MIT
+License-file: LICENSE
+Author: Dmitry Malikov
+Maintainer: Dmitry Malikov <malikov.d.y@gmail.com>
+Category: System
+Cabal-Version: >= 1.8
+Build-Type: Simple
+
+Library
+  Build-Depends: base >= 3 && < 5,
+                 biegunka-core,
+                 darcs >= 2.8.3,
+                 directory,
+                 filepath,
+                 unix,
+                 text,
+                 free
+  HS-Source-Dirs: src
+  Exposed-Modules: Biegunka.Source.Darcs
+  GHC-Options: -Wall
+               -fno-warn-unused-do-bind
