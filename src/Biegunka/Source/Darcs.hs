@@ -6,16 +6,18 @@ module Biegunka.Source.Darcs
     darcs, darcs_
   ) where
 
-import           Control.Exception     (SomeException (..), fromException, handle)
+import           Control.Exception     (SomeException (..), fromException,
+                                        handle)
 import           Control.Monad.Free    (liftF)
 import           Data.Text             (pack)
 import           System.Directory      (doesDirectoryExist)
-import System.Exit (ExitCode(..))
+import           System.Exit           (ExitCode (..))
 import           System.FilePath.Posix (takeDirectory)
 
 import           Darcs.Commands        (DarcsCommand (commandCommand))
 import           Darcs.Commands.Get    (get)
 import           Darcs.Commands.Pull   (pull)
+import qualified Darcs.Flags           as F
 import           Darcs.Utils           (withCurrentDirectory)
 
 
@@ -54,9 +56,9 @@ updateDarcs url path = do
   exists ← doesDirectoryExist path
   handle check $ if exists
     then -- pull
-      withCurrentDirectory path $ commandCommand pull [] [url]
+      withCurrentDirectory path $ commandCommand pull [F.Quiet] [url]
     else -- get
-      withCurrentDirectory parent_path $ commandCommand get [] [url]
+      withCurrentDirectory parent_path $ commandCommand get [F.Quiet] [url]
  where
 
   parent_path = takeDirectory path
