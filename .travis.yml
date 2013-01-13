@@ -1,0 +1,12 @@
+language: haskell
+
+before_install:
+  # install last biegunka-core
+  - git clone --branch=master --depth=100 --quiet git://github.com/biegunka/biegunka-core.git biegunka-core
+  - cd biegunka-core && cabal install --constraint="regex-posix >= 0.95.2" --force-reinstalls
+  - cd -
+
+install:
+ - cabal install --only-dependencies
+
+script: true
